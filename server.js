@@ -14,12 +14,11 @@ const lanAddress = Object.values(networkInterfaces()).flat().find(address => add
 const duration = 5 * 60 * 1000;
 const choices = {
   place: ['room', 'washroom', 'salon', 'other', 'do-not-shave'],
-  reaction: ['confident', 'awkward', 'both'],
   confidence: ['approval', 'self', 'both']
 };
 
 export function freshState() {
-  return { schemaVersion: 2, votes: [], generation: 0, status: 'lobby', elapsedMs: 0, startedAt: null };
+  return { schemaVersion: 3, votes: [], generation: 0, status: 'lobby', elapsedMs: 0, startedAt: null };
 }
 
 export function snapshot(state, now = Date.now()) {
@@ -35,7 +34,7 @@ export function validVote(body) {
 let state;
 try {
   const saved = JSON.parse(await readFile(dataFile, 'utf8'));
-  state = saved.schemaVersion === 2 ? { ...freshState(), ...saved } : { ...freshState(), generation: (saved.generation || 0) + 1 };
+  state = saved.schemaVersion === 3 ? { ...freshState(), ...saved } : { ...freshState(), generation: (saved.generation || 0) + 1 };
   if (state.status === 'running' && Date.now() - state.startedAt + state.elapsedMs >= duration) {
     state.status = 'ended';
     state.elapsedMs = duration;
@@ -101,8 +100,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       }
       if (request.method === 'POST' && url.pathname === '/api/vote') {
         const body = await bodyOf(request);
-        if (!validVote(body)) return json(response, 400, { error: 'Please answer all three questions.' });
-        const vote = { id: body.id, place: body.place, reaction: body.reaction, confidence: body.confidence };
+        if (!validVote(body)) return json(response, 400, { error: 'Please answer both questions.' });
+        const vote = { id: body.id, place: body.place, confidence: body.confidence };
         const index = state.votes.findIndex(existing => existing.id === body.id);
         if (index < 0) state.votes.push(vote); else state.votes[index] = vote;
         await save();

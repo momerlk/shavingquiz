@@ -29,7 +29,7 @@ function sceneHtml(state, index) {
   if (state.status === 'lobby') return results(state);
   if (index === 0) return results(state);
   if (index === 1) return `<div class="statement-scene"><h2>PRIVATE<br><em>MEETS PUBLIC.</em></h2><p>Half shaved. Middle of Khokha.</p><div class="shave-swipe" aria-hidden="true"></div></div>`;
-  if (index === 2) return `<div class="question-scene"><div class="question-mark">?</div><h2>THEY STARE.<br><em>HE DOESN'T.</em></h2><p>${percent(tally(state.votes, 'reaction', 'confident') + tally(state.votes, 'reaction', 'both'), total)}% saw confidence in the scene.</p></div>`;
+  if (index === 2) return `<div class="question-scene"><div class="question-mark">?</div><h2>THEY STARE.<br><em>HE DOESN'T.</em></h2><p>Calm in the middle of Khokha.</p></div>`;
   if (index === 3) return `<div class="ad-scene"><div class="ad-frame"><span class="frame-corner top-left"></span><span class="frame-corner bottom-right"></span><img src="/assets/gillette_wordmark_on_black_bg.png" alt="Gillette"></div><span class="side-note">LOOK UP.</span></div>`;
   return `<div class="final-scene"><span class="micro">${percent(tally(state.votes, 'confidence', 'self') + tally(state.votes, 'confidence', 'both'), total)}% CHOSE SELF-ASSURANCE</span><h2><span>NOT FOR THEM.</span><em>FOR YOURSELF.</em></h2><p>Unbothered. Unshaken. Unmistakably Gillette.</p></div>`;
 }
@@ -42,7 +42,7 @@ function render(state) {
     $('#status-text').textContent = state.status.toUpperCase();
     $('#vote-count').textContent = `${state.votes.length} ${state.votes.length === 1 ? 'RESPONSE' : 'RESPONSES'}`;
     $('#phase-name').textContent = state.status === 'lobby' ? 'Live survey results' : chapters[index].name;
-    $('#phase-cue').textContent = state.status === 'lobby' ? 'Let everyone finish the three questions. The results update as votes arrive.' : chapters[index].cue;
+    $('#phase-cue').textContent = state.status === 'lobby' ? 'Let everyone finish the two questions. The results update as votes arrive.' : chapters[index].cue;
     $('#start').disabled = !['lobby', 'paused'].includes(state.status);
     $('#start').innerHTML = state.status === 'paused' ? 'RESUME <span>↗</span>' : 'START 5:00 <span>↗</span>';
     $('#pause').disabled = state.status !== 'running';
@@ -105,7 +105,7 @@ if (isPresenter) {
   function showStep(next) {
     step = next;
     steps.forEach((field, index) => field.hidden = index !== step);
-    $('#step-count').textContent = `0${step + 1} / 03`;
+    $('#step-count').textContent = `0${step + 1} / 0${steps.length}`;
     $('#progress-fill').style.transform = `scaleX(${(step + 1) / steps.length})`;
     $('#back-step').hidden = step === 0;
     $('#submit-vote').hidden = true;
