@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://shavingquiz-60252382487.asia-south1.run.app/api/:splat"
+  status = 200
+  force = true
