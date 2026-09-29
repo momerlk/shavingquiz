@@ -60,8 +60,11 @@ async function bodyOf(request) {
   return JSON.parse(raw);
 }
 
-async function save() {
-  await writeFile(dataFile, JSON.stringify(state));
+let pendingSave = Promise.resolve();
+function save() {
+  const data = JSON.stringify(state);
+  pendingSave = pendingSave.catch(() => {}).then(() => writeFile(dataFile, data));
+  return pendingSave;
 }
 
 export function control(state, action, now = Date.now()) {
@@ -99,8 +102,9 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       if (request.method === 'POST' && url.pathname === '/api/vote') {
         const body = await bodyOf(request);
         if (!validVote(body)) return json(response, 400, { error: 'Please answer all three questions.' });
-        const index = state.votes.findIndex(vote => vote.id === body.id);
-        if (index < 0) state.votes.push(body); else state.votes[index] = body;
+        const vote = { id: body.id, place: body.place, reaction: body.reaction, confidence: body.confidence };
+        const index = state.votes.findIndex(existing => existing.id === body.id);
+        if (index < 0) state.votes.push(vote); else state.votes[index] = vote;
         await save();
         return json(response, 200, { ok: true });
       }
