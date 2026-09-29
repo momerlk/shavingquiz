@@ -1,0 +1,4 @@
+node_modules/
+presentation-data.json
+.DS_Store
+assets/* copy.png

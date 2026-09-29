@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061433">
+  <title>Unbothered — SS100 × Gillette</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body data-page="audience">
+  <div class="page-grain"></div>
+  <header class="topbar"><span class="course">SS100 <span class="header-cross">×</span> GILLETTE</span><span class="topbar-right">LUMS</span></header>
+  <main class="audience-shell">
+    <section id="survey" class="survey-view">
+      <div class="survey-progress"><span id="step-count">01 / 03</span><span class="progress-track"><span id="progress-fill"></span></span><span>~20 SEC</span></div>
+      <form id="survey-form">
+        <fieldset data-step="0"><legend tabindex="-1">Where do you usually <em>shave?</em></legend><div class="option-grid" data-group="place">
+          <label><input type="radio" name="place" value="room" required><span>My room</span></label>
+          <label><input type="radio" name="place" value="washroom"><span>Washroom</span></label>
+          <label><input type="radio" name="place" value="salon"><span>Barber / salon</span></label>
+          <label><input type="radio" name="place" value="other"><span>Somewhere else</span></label>
+          <label class="wide"><input type="radio" name="place" value="do-not-shave"><span>I don't shave</span></label>
+        </div></fieldset>
+        <fieldset data-step="1" hidden><legend tabindex="-1">Shaving at <em>Khokha</em> looks...</legend><div class="option-grid" data-group="reaction">
+          <label><input type="radio" name="reaction" value="confident" required><span>Confident</span></label>
+          <label><input type="radio" name="reaction" value="awkward"><span>Awkward</span></label>
+          <label><input type="radio" name="reaction" value="both"><span>Both</span></label>
+        </div></fieldset>
+        <fieldset data-step="2" hidden><legend tabindex="-1">Confidence comes from...</legend><div class="option-grid three" data-group="confidence">
+          <label><input type="radio" name="confidence" value="approval" required><span>Others' approval</span></label>
+          <label><input type="radio" name="confidence" value="self"><span>Feeling good yourself</span></label>
+          <label><input type="radio" name="confidence" value="both"><span>Both</span></label>
+        </div></fieldset>
+        <div class="survey-actions"><button id="back-step" class="back-button" type="button" hidden>← Back</button><button id="submit-vote" class="primary-button" type="submit" hidden>TRY AGAIN <span>↗</span></button></div>
+        <p id="form-error" class="error" role="alert"></p>
+      </form>
+      <div class="razor-art" aria-hidden="true"><div class="razor-head"><i></i><i></i><i></i></div><div class="razor-neck"></div><div class="razor-handle"></div><b class="foam one"></b><b class="foam two"></b><b class="foam three"></b></div>
+    </section>
+    <section id="experience" class="experience-view" hidden>
+      <div class="experience-top"><span class="live-dot"></span><span id="live-indicator" class="live-indicator">WAITING</span><span id="audience-clock">05:00</span></div>
+      <div id="scene" class="scene"></div>
+      <div class="experience-bottom"><span id="scene-label">LIVE RESULTS</span></div>
+    </section>
+  </main>
+  <footer class="footer"><span>UNBOTHERED.</span><span>OMER × ZAYNAH × SAFFI</span></footer>
+</body>
+</html>

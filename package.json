@@ -1,0 +1,12 @@
+{
+  "name": "ss100-gillette-presentation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}
